@@ -4,8 +4,6 @@ terraform {
 
 }
 provider "aws" {
-
-  source  = "terraform-aws-modules/vpc/aws"
   
   region  = "us-west-2"
   
@@ -14,10 +12,18 @@ provider "aws" {
  }
 provider "aws" {
 
-  source  = "terraform-aws-modules/vpc/aws"
-
   region = "ap-northeast-1"
 
   alias  = "tokyo"
 
  }
+module "vpc" {
+
+  source = "terraform-aws-modules/vpc/aws"
+
+  cidr   = "10.200.0.0/16"
+
+  providers = {
+    name = "us-west" 
+   }
+}
