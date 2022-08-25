@@ -7,6 +7,6 @@ provider "aws" {
 provider "aws" {
   source  = "hashicorp/aws"
   region = "ap-northeast-1"
-  alias  = "tokyo"
+  alias  = "ap-northeast-1"
  }
 }
