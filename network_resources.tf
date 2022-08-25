@@ -24,6 +24,6 @@ module "vpc" {
   cidr   = "10.200.0.0/16"
 
   providers = {
-    name = "us-west" 
+    name = us-west 
    }
 }
