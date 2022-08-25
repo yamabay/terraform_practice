@@ -5,7 +5,7 @@ terraform {
 }
 provider "aws" {
 
-  source  = "hashicorp/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   
   region  = "us-west-2"
   
@@ -14,7 +14,7 @@ provider "aws" {
  }
 provider "aws" {
 
-  source  = "hashicorp/aws"
+  source  = "terraform-aws-modules/vpc/aws"
 
   region = "ap-northeast-1"
 
