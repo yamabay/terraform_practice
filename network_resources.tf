@@ -17,6 +17,13 @@ provider "aws" {
   alias   = "us-west-2"
 
 }
+# Gather available azs
+data "aws_availability_zones" "available" {
+
+  state    = "available"
+  provider = aws.us-east-1
+
+}
 # Create VPC and Public Subnets in US East 1
 module "vpc_us-east-1" {
 
@@ -68,13 +75,27 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   auto_accept               = true
 
 }
-# Gather available azs
-data "aws_availability_zones" "available" {
+# Update route tables in both VPCs with peering connection route to each other
+resource "aws_route" "east_to_peer" {
 
-  state    = "available"
-  provider = aws.us-east-1
+  route_table_id            = module.vpc_us-east-1.public_route_table_ids[0]
+  destination_cidr_block    = "192.168.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.east-to-west.id
+  provider                  = aws.us-east-1
 
 }
+resource "aws_route" "west_to_peer" {
+
+  route_table_id            = module.vpc_us-west-2.public_route_table_ids[0]
+  destination_cidr_block    = "10.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.east-to-west.id
+  provider                  = aws.us-west-2
+
+}
+
+
+
+
 # Outputs for VPC IDs
 output "vpc_id_us-east-1" {
 
