@@ -47,6 +47,27 @@ module "vpc_us-west-2" {
   }
 
 }
+# Create Peering Connection between VPCs
+resource "aws_vpc_peering_connection" "east-to-west" {
+
+  provider      = aws.us-east-1
+  peer_owner_id = module.vpc_us-west-2.vpc_owner_id
+  peer_vpc_id   = module.vpc_us-west-2.vpc_id
+  vpc_id        = module.vpc_us-east-1.vpc_id
+  peer_region   = var.peer_region
+  tags = {
+    Name = "east-to-west-peering"
+  }
+
+}
+# Approval for Peering Connection
+resource "aws_vpc_peering_connection_accepter" "peer" {
+
+  provider                  = aws.us-west-2
+  vpc_peering_connection_id = aws_vpc_peering_connection.east-to-west.id
+  auto_accept               = true
+
+}
 # Gather available azs
 data "aws_availability_zones" "available" {
 
@@ -63,7 +84,6 @@ output "vpc_id_us-east-1" {
 output "vpc_id_us-west-2" {
 
   value = module.vpc_us-west-2.vpc_id
-  
-}
 
+}
 
