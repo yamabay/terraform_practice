@@ -92,7 +92,20 @@ resource "aws_route" "west_to_peer" {
   provider                  = aws.us-west-2
 
 }
+# Create private subnets in us-east-1 and loop through available azs
+resource "aws_subnet" "private_subnets" {
 
+  count             = length(var.private_subnets_us-east-1)
+  vpc_id            = module.vpc_us-east-1.vpc_id
+  cidr_block        = element(var.private_subnets_us-east-1, count.index)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  provider          = aws.us-east-1
+
+  tags = {
+    Name = "Private Subnet ${count.index}"
+  }
+
+}
 
 
 
