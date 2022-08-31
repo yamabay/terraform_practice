@@ -120,4 +120,9 @@ output "vpc_id_us-west-2" {
   value = module.vpc_us-west-2.vpc_id
 
 }
+output "private_subnet_ids" {
+
+  value = resource.aws_subnet.private_subnets.*.id
+
+}
 
