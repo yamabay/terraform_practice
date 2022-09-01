@@ -42,4 +42,5 @@ resource "aws_subnet" "private_subnets" {
   }
 
 }
+# Next step is to build NAT gateways and associate with the public subnets
 

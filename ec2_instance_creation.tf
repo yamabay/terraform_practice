@@ -1,5 +1,5 @@
 # Basic EC2 instance creation with Amazon Linux image
-resource "aws_instance" "new_ec2" {
+resource "aws_instance" "new_ec2s" {
 
   count             = length(var.private_subnets_us-east-1)
   ami               = "ami-05fa00d4c63e32376"
