@@ -57,3 +57,5 @@ resource "aws_route_table_association" "us-east-1_private" {
 
 }
 # Once NAT gateways are created, add the default route to the private route table pointing to the NAT gateway
+# Point default route for route table for each private subnet
+# Need to fix route table resource above to create multiple route tables since there will be different NAT gateways
