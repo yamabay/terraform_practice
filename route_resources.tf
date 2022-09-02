@@ -40,20 +40,38 @@ resource "aws_route" "west_to_peer" {
 # Create new route table for private subnets in us-east-1
 resource "aws_route_table" "private_rt" {
 
+  count    = length(var.private_subnets_us-east-1)
   vpc_id   = module.vpc_us-east-1.vpc_id
   provider = aws.us-east-1
   tags = {
-    Name = "Private rt for us-east-1 subnets"
+    Name = "Private rt ${count.index} for us-east-1 subnets"
   }
 
 }
-# Associate new route table with private subnets in us-east-1
+# Associate new route tables with private subnets in us-east-1
 resource "aws_route_table_association" "us-east-1_private" {
 
   count          = length(var.private_subnets_us-east-1)
   subnet_id      = element(resource.aws_subnet.private_subnets.*.id, count.index)
-  route_table_id = resource.aws_route_table.private_rt.id
+  route_table_id = element(resource.aws_route_table.private_rt.*.id, count.index)
   provider       = aws.us-east-1
 
 }
-# Once NAT gateways are created, add the default route to the private route table pointing to the NAT gateway
+# Create the default route pointing to nat gateway for private subnets
+# Could have used the count argument, but wanted to practice calling specific indices
+resource "aws_route" "default-to-nat0" {
+
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = resource.aws_nat_gateway.nat-gws[0].id
+  route_table_id         = resource.aws_route_table.private_rt[0].id
+  provider               = aws.us-east-1
+
+}
+resource "aws_route" "default-to-nat1" {
+
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = resource.aws_nat_gateway.nat-gws[1].id
+  route_table_id         = resource.aws_route_table.private_rt[1].id
+  provider               = aws.us-east-1
+
+}

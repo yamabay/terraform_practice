@@ -15,3 +15,8 @@ output "private_subnet_ids" {
   value = resource.aws_subnet.private_subnets.*.id
 
 }
+output "public_subnet_id" {
+
+  value = resource.aws_eip.nat-gw-eip
+
+}
