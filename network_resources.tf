@@ -1,8 +1,8 @@
 # Create VPC and Public Subnets in US East 1
 module "vpc_us-east-1" {
 
-  source         = "terraform-aws-modules/vpc/aws"
-  cidr           = "10.0.0.0/16"
+  source = "terraform-aws-modules/vpc/aws"
+  cidr   = "10.0.0.0/16"
   # Need to fix azs to loop through available AZs
   azs            = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   public_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
@@ -46,8 +46,8 @@ resource "aws_subnet" "private_subnets" {
 # Create EIPs for NAT GWs
 resource "aws_eip" "nat-gw-eip" {
 
-  count = length(module.vpc_us-east-1.public_subnets)
-  vpc = true
+  count    = length(module.vpc_us-east-1.public_subnets)
+  vpc      = true
   provider = aws.us-east-1
   tags = {
     Name = "EIP for NAT GW"
@@ -57,10 +57,10 @@ resource "aws_eip" "nat-gw-eip" {
 # Create NAT GWs and assign to public subnets in us-east-1
 resource "aws_nat_gateway" "nat-gws" {
 
-  count = length(module.vpc_us-east-1.public_subnets)
+  count         = length(module.vpc_us-east-1.public_subnets)
   allocation_id = element(aws_eip.nat-gw-eip.*.allocation_id, count.index)
-  subnet_id = element(module.vpc_us-east-1.public_subnets, count.index)
-  provider = aws.us-east-1
+  subnet_id     = element(module.vpc_us-east-1.public_subnets, count.index)
+  provider      = aws.us-east-1
   tags = {
     Name = "NAT GW ${count.index}"
   }
