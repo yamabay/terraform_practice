@@ -1,8 +1,8 @@
 # Create VPC and Public Subnets in US East 1
 module "vpc_us-east-1" {
 
-  source = "terraform-aws-modules/vpc/aws"
-  cidr   = "10.0.0.0/16"
+  source         = "terraform-aws-modules/vpc/aws"
+  cidr           = "10.0.0.0/16"
   azs            = data.aws_availability_zones.us-east-1.names
   public_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
   tags = {
@@ -19,7 +19,7 @@ module "vpc_us-west-2" {
   source         = "terraform-aws-modules/vpc/aws"
   cidr           = "192.168.0.0/16"
   azs            = data.aws_availability_zones.us-west-2.names
-  public_subnets = ["192.168.1.0/24"]
+  public_subnets = ["192.168.1.0/24", "192.168.2.0/24"]
   tags = {
     Name = "us-west-2_VPC"
   }
@@ -65,3 +65,6 @@ resource "aws_nat_gateway" "nat-gws" {
   }
 
 }
+
+
+# Dont forget about us-west-2, need to create EIPs and NAT GWs there also

@@ -8,7 +8,10 @@ resource "aws_instance" "new_ec2s" {
   provider          = aws.us-east-1
   subnet_id         = element(resource.aws_subnet.private_subnets.*.id, count.index)
   tags = {
-    Name = "EC2 Private Subnet ${count.index}"
+    Name = "EC2 in Private Subnet ${count.index}"
   }
 
 }
+# Implement a bastion host in each public subnet
+# Assign correct security groups to the private and public instances
+# Research key creation/management through terraform
