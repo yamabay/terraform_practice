@@ -5,15 +5,15 @@ terraform {
 }
 provider "aws" {
 
-  region  = "us-east-1"
-  profile = "terraform_user"
-  alias   = "us-east-1"
+  region  = var.region_1
+  profile = var.profile
+  alias   = "region_1"
 
 }
 provider "aws" {
 
-  region  = "us-west-2"
-  profile = "terraform_user"
-  alias   = "us-west-2"
+  region  = var.region_2
+  profile = var.profile
+  alias   = "region_2"
 
 }
