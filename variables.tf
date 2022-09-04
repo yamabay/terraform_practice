@@ -54,7 +54,7 @@ variable "private_ec2_ami_region_1" {
 
 }
 
-#### REGION 2 INFORMATION ####
+#### REGION 2 VARIABLES ####
 
 variable "region_2" {
 
