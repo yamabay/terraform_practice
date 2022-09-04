@@ -1,38 +1,49 @@
 # Outputs for VPC IDs
-output "vpc_id_us-east-1" {
+output "vpc_id_region_1" {
 
-  description = "VPC ID created in us-east-1"
-  value       = module.vpc_us-east-1.vpc_id
-
-}
-output "vpc_id_us-west-2" {
-
-  description = "VPC ID created in us-west-2"
-  value       = module.vpc_us-west-2.vpc_id
+  description = "VPC ID created in region 1"
+  value       = module.vpc_region_1.vpc_id
 
 }
-# Use the * to gather values from counted resources
-output "private_subnet_ids" {
+output "vpc_id_region_2" {
 
-  description = "Private Subnet IDs in us-east-1"
-  value       = resource.aws_subnet.private_subnets.*.id
-
-}
-output "public_subnet_ids_us-east-1" {
-
-  description = "Public Subnet IDs for us-east-1"
-  value       = module.vpc_us-east-1.public_subnets
+  description = "VPC ID created in region 2"
+  value       = module.vpc_region_2.vpc_id
 
 }
-output "public_subnet_ids_us-west-2" {
+output "private_subnet_ids_region_1" {
 
-  description = "Public Subnet IDs for us-west-2"
-  value       = module.vpc_us-west-2.public_subnets
+  description = "Private Subnet IDs in region 1"
+  value       = resource.aws_subnet.region_1_private_subnets.*.id
 
 }
-output "aws_eip_ids" {
+output "private_subnet_ids_region_2" {
 
-  description = "EIP IDs that are associated with NAT GWs"
-  value       = resource.aws_eip.nat-gw-eip.*.allocation_id
+  description = "Private Subnet IDs in region 2"
+  value       = resource.aws_subnet.region_2_private_subnets.*.id
+
+}
+output "public_subnet_ids_region_1" {
+
+  description = "Public Subnet IDs for region 1"
+  value       = module.vpc_region_1.public_subnets
+
+}
+output "public_subnet_ids_region_2" {
+
+  description = "Public Subnet IDs for region 2"
+  value       = module.vpc_region_2.public_subnets
+
+}
+output "aws_eip_ids_region_1" {
+
+  description = "EIP IDs that are associated with NAT GWs in region 1"
+  value       = resource.aws_eip.nat_gw_eip_region_1.*.allocation_id
+
+}
+output "aws_eip_ids_region_2" {
+
+  description = "EIP IDs that are associated with NAT GWs in region 2"
+  value       = resource.aws_eip.nat_gw_eip_region_2.*.allocation_id
 
 }
