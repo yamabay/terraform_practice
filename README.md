@@ -1,5 +1,4 @@
 # terraform_practice
-Terraform practice for AWS infrastructure deployments
 This is an example deployment project for AWS using Terraform.  It focuses on deploying various network resources including:
 - VPCs
 - Public and Private Subnets
