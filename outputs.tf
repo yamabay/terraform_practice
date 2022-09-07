@@ -47,3 +47,9 @@ output "aws_eip_ids_region_2" {
   value       = resource.aws_eip.nat_gw_eip_region_2.*.allocation_id
 
 }
+output "module_vpc_output" {
+
+  description = "Output of VPC module for testing"
+  value       = data.aws_ami.amazon_linux_region_1.arn
+
+}
