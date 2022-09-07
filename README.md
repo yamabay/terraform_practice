@@ -18,3 +18,6 @@ Always open to suggestions to improve the code and any new additions to the proj
 
 ![aws-terraform drawio](https://user-images.githubusercontent.com/107229102/188531311-93e1dc1b-554e-4fd9-8fe7-98be3b590000.png)
 
+**Heads Up!**
+The diagram does not include all resources that are created.  For example, custom security groups are created for both the public and private EC2 instances.  Custom route tables for the private subnets are also created.
+
