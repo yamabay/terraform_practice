@@ -8,7 +8,7 @@ variable "profile" {
   default     = "terraform_user"
 
 }
-variable "private_ec2_type" {
+variable "ec2_type" {
 
   type        = string
   description = "Set instance type for ec2 in private subnets"
@@ -46,13 +46,13 @@ variable "vpc_region1_private_subnets" {
   default     = ["10.0.3.0/24", "10.0.4.0/24"]
 
 }
-variable "private_ec2_ami_region_1" {
-
-  type        = string
-  description = "Set AMI for image for ec2 image deployed in private subnets in region 1"
-  default     = "ami-05fa00d4c63e32376"
-
-}
+#variable "ec2_ami_region_1" {
+#
+#  type        = string
+#  description = "Set AMI for image for ec2 image deployed in private subnets in region 1"
+#  default     = "ami-05fa00d4c63e32376"
+#
+#}
 
 #### REGION 2 VARIABLES ####
 
@@ -84,10 +84,10 @@ variable "vpc_region2_private_subnets" {
   default     = ["192.168.3.0/24", "192.168.4.0/24"]
 
 }
-variable "private_ec2_ami_region_2" {
-
-  type        = string
-  description = "Set AMI for image for ec2 image deployed in private subnets in region 2"
-  default     = "ami-0c2ab3b8efb09f272"
-
-}
+#variable "ec2_ami_region_2" {
+#
+#  type        = string
+#  description = "Set AMI for image for ec2 image deployed in private subnets in region 2"
+#  default     = "ami-0c2ab3b8efb09f272"
+#
+#}
